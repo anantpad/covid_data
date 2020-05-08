@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table{
+            border-spacing: 5px;
+            width: 100%;
+            font-family: sans-serif;
+            border-collapse: collapse;
+        }
+        table, th, td{
+            border: 1px solid black;
+        }
+        th{
+            background-color: #582C83;
+            color: white;
+        }
+        th,td{
+            padding: 15px;
+        }
+        tr:hover{
+            background-color: #CFBFDF
+        }
+    </style>
+</head>
+<body>
+    <h1>COVID DATA</h1>
+    <table id="myTable" class="sortable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0);">State</th>
+                <th onclick="sortTable(1);">Positive</th>
+                <th onclick="sortTable(2);">Negative</th>
+                <th onclick="sortTable(3);">Pending</th>
+                <th onclick="sortTable(4);">Death</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for record in data %}
+        <tr>
+            <td>{{record["state"]}}</td>
+            <td>{{record["positive"]}}</td>
+            <td>{{record["negative"]}}</td>
+            <td>{{record["pending"]}}</td>
+            <td>{{record["death"]}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <script type="text/javascript">
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("myTable");
+            switching = true;
+<!--            Set the sorting direction to ascending:-->
+            dir = "asc";
+<!--            Make a loop that will continue until no switching has been done:-->
+            while (switching) {
+<!--            Start by saying: no switching is done:-->
+            switching = false;
+            rows = table.rows;
+<!--            Loop through all table rows (except the first, which contains table headers):-->
+            for (i = 1; i < (rows.length - 1); i++) {
+<!--                Start by saying there should be no switching:-->
+                shouldSwitch = false;
+<!--                Get the two elements you want to compare, one from current row and one from the next:-->
+                x = rows[i].getElementsByTagName("td")[n];
+                y = rows[i+1].getElementsByTagName("td")[n];
+<!--                Check if the two rows should switch place, based on the direction, asc or desc:-->
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+<!--                    If so, mark as a switch and break the loop:-->
+                    shouldSwitch = true;
+                    break;
+                    }
+                }
+                elif (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+<!--                    If so, mark as a switch and break the loop:-->
+                    shouldSwitch = true;
+                    break;
+                    }
+                }
+                }
+            if (shouldSwitch) {
+<!--                If a switch has been marked, make the switch and mark that a switch has been done:-->
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+<!--                Each time a switch is done, increase this count by 1:-->
+                switchcount ++;
+                }
+             else {
+<!--                If no switching has been done AND the direction is "asc", set the direction to "desc" and run the while loop again.-->
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                    }
+                }
+              }
+            }
+    </script>
+</body>
+</html>
