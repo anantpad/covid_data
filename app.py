@@ -4,7 +4,6 @@ from flask import Flask, request, render_template, jsonify
 from flask_pymongo import PyMongo
 from flask import redirect, session, flash
 import requests
-import base64
 import json
 
 #initialize

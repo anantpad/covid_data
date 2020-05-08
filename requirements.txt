@@ -1,5 +1,4 @@
 flask
 flask_pymongo
 requests
-base64
 json
