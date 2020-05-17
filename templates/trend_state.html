@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Title</title>
+    <style>
+        table{
+            border-spacing: 5px;
+            width: 100%;
+            font-family: sans-serif;
+            border-collapse: collapse;
+        }
+        table, th, td{
+            border: 1px solid black;
+        }
+        th{
+            background-color: #582C83;
+            color: white;
+        }
+        th,td{
+            padding: 15px;
+        }
+        tr:hover{
+            background-color: #CFBFDF
+        }
+    </style>
+  </head>
+  <body>
+    <div class="">
+      {% for i in state_master %}
+      <h1>{{i}}</h1>
+      <div class="">
+        <table>
+          <thead>
+            <tr>
+              <th>Positive Cases</th>
+              <th>Date Modified</th>
+              <th>Recovered</th>
+              <th>Death</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for j in trends %}
+            {% if j["state"] == i %}
+            <tr>
+              <td>{{j["positive"]}}</td>
+              <td>{{j["dateModified"]}}</td>
+              <td>{{j["recovered"]}}</td>
+              <td>{{j["death"]}}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+
+</html>
