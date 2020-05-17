@@ -2,59 +2,101 @@
 <html lang="en" dir="ltr">
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <title>Title</title>
+    <title>US State wise Date</title>
     <style>
-        table{
-            border-spacing: 5px;
-            width: 100%;
-            font-family: sans-serif;
-            border-collapse: collapse;
-        }
-        table, th, td{
-            border: 1px solid black;
-        }
-        th{
-            background-color: #582C83;
-            color: white;
-        }
-        th,td{
-            padding: 15px;
-        }
-        tr:hover{
-            background-color: #CFBFDF
-        }
+      table{
+          border-spacing: 5px;
+          width: 100%;
+          font-family: sans-serif;
+          border-collapse: collapse;
+      }
+      table, th, td{
+          border: 1px solid black;
+      }
+      th{
+          background-color: #582C83;
+          color: white;
+      }
+      th,td{
+          padding: 15px;
+      }
+      tr:hover{
+          background-color: #CFBFDF
+      }
+      .button {
+        background-color: #582C83;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        border-radius: 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+      }
+      div{
+        padding: 10px;
+      }
+      p{
+        color: #582C83;
+        font-style: sans-serif;
+        font-weight: bold;
+        font-size: 25px;
+      }
+      .active{
+        background-color: rgb(0,0,0);
+        border-radius: 50%;
+      }
+      h1{
+        font-family: sans-serif;
+        text-align: center;
+        font-weight: bold;
+      }
+      nav {
+        background-color: rgb(255, 200, 170);
+        border: 2px solid rgb(0, 0, 0);
+        border-radius: 10px;
+        text-align: center;
+        padding-bottom: 1%;
+      }
     </style>
   </head>
   <body>
-    <div class="">
-      {% for i in state_master %}
-      <h1>{{i}}</h1>
+    <form class="" action="/state" method="post">
+      <nav>
+        <h1>US State-wise Data</h1>
+        <a class="button" href="/">Home</a>
+        <a class="button active" href="/state">State-wise Data</a>
+      </nav>
       <div class="">
-        <table>
-          <thead>
-            <tr>
-              <th>Positive Cases</th>
-              <th>Date Modified</th>
-              <th>Recovered</th>
-              <th>Death</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for j in trends %}
-            {% if j["state"] == i %}
-            <tr>
-              <td>{{j["positive"]}}</td>
-              <td>{{j["dateModified"]}}</td>
-              <td>{{j["recovered"]}}</td>
-              <td>{{j["death"]}}</td>
-            </tr>
-            {% endif %}
-            {% endfor %}
-          </tbody>
-        </table>
+        {% for i in state_master %}
+        <p>{{i}}</p>
+        <div class="">
+          <table>
+            <thead>
+              <tr>
+                <th>Positive Cases</th>
+                <th>Date Modified</th>
+                <th>Recovered</th>
+                <th>Death</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for j in trends %}
+              {% if j["state"] == i %}
+              <tr>
+                <td>{{j["positive"]}}</td>
+                <td>{{j["dateModified"]}}</td>
+                <td>{{j["recovered"]}}</td>
+                <td>{{j["death"]}}</td>
+              </tr>
+              {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
+    </form>
   </body>
-
 </html>

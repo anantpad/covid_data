@@ -1,79 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>Title</title>
     <style>
-        table{
-            border-spacing: 5px;
-            width: 100%;
-            font-family: sans-serif;
-            border-collapse: collapse;
-        }
-        table, th, td{
-            border: 1px solid black;
-        }
-        th{
-            background-color: #582C83;
-            color: white;
-        }
-        th,td{
-            padding: 15px;
-        }
-        tr:hover{
-            background-color: #CFBFDF
-        }
+      table{
+        border-spacing: 5px;
+        width: 100%;
+        font-family: sans-serif;
+        border-collapse: collapse;
+      }
+      table, th, td{
+        border: 1px solid black;
+      }
+      th{
+        background-color: #582C83;
+        color: white;
+      }
+      th,td{
+        padding: 15px;
+      }
+      tr:hover{
+        background-color: #CFBFDF
+      }
+      .button {
+        background-color: #582C83;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        border-radius: 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+      }
+      p{
+        color: #582C83;
+        font-style: sans-serif;
+        font-weight: bold;
+        font-size: 25px;
+      }
+      div{
+        padding: 10px;
+      }
+      .active{
+        background-color: rgb(0, 0, 0);
+        border-radius: 50%;
+      }
+      h1{
+        font-family: sans-serif;
+        text-align: center;
+        font-weight: bold;
+      }
+      nav {
+        background-color: rgb(255, 200, 170);
+        border: 2px solid rgb(0, 0, 0);
+        border-radius: 10px;
+        text-align: center;
+        padding-bottom: 1%;
+      }
     </style>
-</head>
-<body>
-    <h1>COVID DATA</h1>
+  </head>
+  <body>
+  <form class="" action="/" method="post">
+    <nav>
+      <h1>COVID DATA</h1>
+      <a class="button active" href="/">Home</a>
+      <a class="button" href="/state">State-wise Data</a>
+    </nav>
     <div class="" id="alertMessage"></div>
     <table id="myTable" class="sortable">
-        <thead>
-            <tr>
-                <th onclick = "sortTable(0);">Sl No.</th>
-                <th onclick = "sortTable(1);">State</th>
-                <th onclick = "sortTable(2);">Positive</th>
-                <th onclick = "sortTable(3);">Negative</th>
-                <th onclick = "sortTable(4);">Pending</th>
-                <th hidden>Hospitalized Currently</th>
-                <th hidden>Hospitalized Cumulative</th>
-                <th hidden>In ICU Currently</th>
-                <th hidden>In ICU Cumulative</th>
-                <th hidden>On Ventilator Currently</th>
-                <th hidden>On Ventilator Cumulative</th>
-                <th hidden>Recovered</th>
-                <th hidden>Last Update ET</th>
-                <th hidden>Check Time ET</th>
-                <th onclick = "sortTable(5);">Death</th>
-                <th onclick = "sortTable(6);">Date Modified</th>
-            </tr>
-        </thead>
-        <tbody>
+      <thead>
+        <tr>
+          <th onclick = "sortTable(0);">Sl No.</th>
+          <th onclick = "sortTable(1);">State</th>
+          <th onclick = "sortTable(2);">Positive</th>
+          <th onclick = "sortTable(3);">Negative</th>
+          <th onclick = "sortTable(4);">Pending</th>
+          <th hidden>Hospitalized Currently</th>
+          <th hidden>Hospitalized Cumulative</th>
+          <th hidden>In ICU Currently</th>
+          <th hidden>In ICU Cumulative</th>
+          <th hidden>On Ventilator Currently</th>
+          <th hidden>On Ventilator Cumulative</th>
+          <th hidden>Recovered</th>
+          <th hidden>Last Update ET</th>
+          <th hidden>Check Time ET</th>
+          <th onclick = "sortTable(5);">Death</th>
+          <th onclick = "sortTable(6);">Date Modified</th>
+        </tr>
+      </thead>
+      <tbody>
         {% set s = 1 %}
         {% for record in data %}
         <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{record["state"]}}</td>
-            <td>{{record["positive"]}}</td>
-            <td>{{record["negative"]}}</td>
-            <td>{{record["pending"]}}</td>
-            <td hidden>{{record["hospitalizedCurrently"]}}</td>
-            <td hidden>{{record["hospitalizedCumulative"]}}</td>
-            <td hidden>{{record["inIcuCurrently"]}}</td>
-            <td hidden>{{record["inIcuCumulative"]}}</td>
-            <td hidden>{{record["onVentilatorCurrently"]}}</td>
-            <td hidden>{{record["onVentilatorCumulative"]}}</td>
-            <td hidden>{{record["recovered"]}}</td>
-            <td hidden>{{record["lastUpdateEt"]}}</td>
-            <td hidden>{{record["checkTimeEt"]}}</td>
-            <td>{{record["death"]}}</td>
-            <td>{{record["dateModified"]}}</td>
+          <td>{{ loop.index }}</td>
+          <td>{{record["state"]}}</td>
+          <td>{{record["positive"]}}</td>
+          <td>{{record["negative"]}}</td>
+          <td>{{record["pending"]}}</td>
+          <td hidden>{{record["hospitalizedCurrently"]}}</td>
+          <td hidden>{{record["hospitalizedCumulative"]}}</td>
+          <td hidden>{{record["inIcuCurrently"]}}</td>
+          <td hidden>{{record["inIcuCumulative"]}}</td>
+          <td hidden>{{record["onVentilatorCurrently"]}}</td>
+          <td hidden>{{record["onVentilatorCumulative"]}}</td>
+          <td hidden>{{record["recovered"]}}</td>
+          <td hidden>{{record["lastUpdateEt"]}}</td>
+          <td hidden>{{record["checkTimeEt"]}}</td>
+          <td>{{record["death"]}}</td>
+          <td>{{record["dateModified"]}}</td>
         </tr>
         {% set s = s + 1 %}
         {% endfor %}
-        </tbody>
+      </tbody>
     </table>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -169,5 +210,6 @@
         }
       }
     </script>
+  </form>
 </body>
 </html>
