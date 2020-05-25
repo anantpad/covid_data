@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <title>US State wise Date</title>
     <style>
       table{
@@ -68,6 +69,9 @@
         <a class="button" href="/">Home</a>
         <a class="button active" href="/state">State-wise Data</a>
       </nav>
+      <div id="piechart">
+
+      </div>
       <div class="">
         {% for i in state_master %}
         <p>{{i}}</p>
@@ -79,6 +83,7 @@
                 <th>Date Modified</th>
                 <th>Recovered</th>
                 <th>Death</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -89,6 +94,9 @@
                 <td>{{j["dateModified"]}}</td>
                 <td>{{j["recovered"]}}</td>
                 <td>{{j["death"]}}</td>
+                <td>
+                  <a href="/delete?dateModified={{j["dateModified"]}}">Delete</a>
+                </td>
               </tr>
               {% endif %}
               {% endfor %}
@@ -98,5 +106,26 @@
         {% endfor %}
       </div>
     </form>
+    <script type="text/javascript">
+    // Load google charts
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      // Draw the chart and set the chart values
+      function drawChart() {
+        // console.log(JSON.stringify('{{trends}}'));
+        var data = google.visualization.arrayToDataTable([
+          ['State','Positive Cases'],
+          {% for dict in positive_cases %}
+          ['{{dict}}',{{positive_cases[dict]}},],
+          {% endfor %}
+        ]);
+        // Optional; add a title and set the width and height of the chart
+        var options = {'title':'State-wise Positive Cases', 'width':1500, 'height':1000};
+
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.BarChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+      }
+    </script>
   </body>
 </html>

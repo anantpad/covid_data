@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      table{
+        border-spacing: 5px;
+        border-collapse: collapse;
+        font-family: sans-serif;
+        width: 100%;
+      }
+      th{
+        background-color: rgba(255, 0, 0, 0.5);
+      }
+      th, td{
+        border: 1px solid black
+      }
+      tr:hover{
+        background-color: rgba(255, 0, 0, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="">
+      <table>
+        <thead>
+          <tr>
+            <th>date</th>
+            <th>date</th>
+          </tr>
+          <tr>
+            <td>Funny</td>
+            <td id="date">2020-05-04T00:09:00Z</td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <script type="text/javascript">
+      function displayDate(){
+        n = document.getElementById("date").innerHTML
+        var date = n.substring(0,10);
+        document.getElementById("formattedDate").innerHTML = date;
+      }
+      function showWindow(){
+        window.onload()
+      }
+    </script>
+  </body>
+</html>

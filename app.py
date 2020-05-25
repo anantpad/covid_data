@@ -5,6 +5,8 @@ from flask_pymongo import PyMongo
 from flask import redirect, session, flash
 import requests
 import json
+import apscheduler
+import datetime
 
 #initialize
 #this function initializes any application
@@ -73,12 +75,27 @@ def get_state_data():
         trends = []
         for i in results:
             trends.append(i)
-        print(trends)
         state_master = []
+        positive_cases_date = []
+        positive_cases = {}
         for dict in trends:
             if dict["state"] not in state_master:
                 state_master.append(dict["state"])
-    return render_template("trend_state.html", trends = trends, state_master = state_master)
+                for state in state_master:
+                    for dict in trends:
+                        if dict["state"] == state:
+                            positive_cases_date.append(dict["dateModified"])
+                        if dict["state"] == state and dict["dateModified"] == positive_cases_date[-1]:
+                            positive_cases.update({dict["state"]:dict["positive"]})
+    print(positive_cases)
+    return render_template("trend_state.html", trends = trends, state_master = state_master, positive_cases = positive_cases)
+
+@app.route("/delete", methods = ['GET', 'POST'])
+def delete():
+    if request.method == 'GET':
+        dateModified = request.args["dateModified"]
+        mongo.db.state_data.delete_one({"dateModified":dateModified})
+        return redirect("/state")
 
 #run
 if __name__ == "__main__":

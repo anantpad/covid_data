@@ -110,12 +110,18 @@
           <td hidden>{{record["lastUpdateEt"]}}</td>
           <td hidden>{{record["checkTimeEt"]}}</td>
           <td>{{record["death"]}}</td>
-          <td>{{record["dateModified"]}}</td>
+          <td id="date" onload="return convertDisplay({{record["dateModified"]}});">{{record["dateModified"]}}</td>
         </tr>
         {% set s = s + 1 %}
         {% endfor %}
       </tbody>
     </table>
+    <script type="text/javascript">
+      function convertDisplay(n){
+        var date = "2020-05-22T02:02:00Z";
+        document.getElementById("date").innerHTML = date.substring(0,10);
+      }
+    </script>
     <script type="text/javascript">
       $(document).ready(function(){
         var table = $("#myTable tr");
@@ -135,7 +141,7 @@
           var lastUpdateEt = $(row).find("td")[12].innerHTML;
           var checkTimeEt = $(row).find("td")[13].innerHTML;
           var death = $(row).find("td")[14].innerHTML;
-          var dateModified = $(row).find("td")[15].innerHTML;
+          var dateModified = ($(row).find("td")[15].innerHTML).substring(0,10);
           $.ajax({
             url:"/",
             type:"POST",
