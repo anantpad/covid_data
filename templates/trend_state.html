@@ -120,10 +120,10 @@
           {% endfor %}
         ]);
         // Optional; add a title and set the width and height of the chart
-        var options = {'title':'State-wise Positive Cases', 'width':1500, 'height':1000};
+        var options = {'title':'State-wise Positive Cases', 'width':1800, 'height':900};
 
         // Display the chart inside the <div> element with id="piechart"
-        var chart = new google.visualization.BarChart(document.getElementById('piechart'));
+        var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
         chart.draw(data, options);
       }
     </script>

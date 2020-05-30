@@ -2,3 +2,4 @@ flask
 flask_pymongo
 requests
 gunicorn
+APScheduler==3.6.3
