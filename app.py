@@ -24,6 +24,7 @@ print(mongo.db)
 @app.route("/", methods = ['GET','POST'])
 def get_data():
     if request.method == 'GET':
+        print("The route was visited")
         data = requests.get("https://covidtracking.com/api/states")
         # data is a response object
         # data.content is of type bytes
@@ -66,6 +67,7 @@ def get_data():
               "death":death,
               "dateModified":dateModified
               }},upsert=True)
+        print("posting data")
         return "success"
 
 @app.route("/state", methods = ['GET','POST'])
