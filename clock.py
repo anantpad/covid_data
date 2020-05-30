@@ -6,7 +6,9 @@ from flask import Flask
 
 app = Flask(__name__)
 sched = BlockingScheduler()
+app.config["MONGO_URI"] = "mongodb://sridhar:asdf@cluster0-shard-00-00-aou9c.mongodb.net:27017,cluster0-shard-00-01-aou9c.mongodb.net:27017,cluster0-shard-00-02-aou9c.mongodb.net:27017/covid_state_db?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority"
 mongo = PyMongo(app)
+
 
 @sched.scheduled_job('interval', seconds=20)
 def timed_job():
