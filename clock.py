@@ -1,8 +1,12 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 import requests
 import json
+from flask_pymongo import PyMongo
+from flask import Flask
 
+app = Flask(__name__)
 sched = BlockingScheduler()
+mongo = PyMongo(app)
 
 @sched.scheduled_job('interval', seconds=20)
 def timed_job():
@@ -44,7 +48,7 @@ def timed_job():
 
 @sched.scheduled_job('cron', day_of_week='mon-fri', hour=17)
 def scheduled_job():
-    requests.get("https://infection-data.herokuapp.com/")
+    data = requests.get("https://infection-data.herokuapp.com/")
     print('This job is run every weekday at 5pm.')
     stateList = json.loads(data.content.decode("utf-8"))
     state = stateList.form["state"]
