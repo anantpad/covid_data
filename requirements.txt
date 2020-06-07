@@ -1,5 +1,7 @@
-flask
+flask~=1.1.2
 flask_pymongo
-requests
+requests~=2.23.0
 gunicorn
 APScheduler==3.6.3
+DateTime~=4.3
+pymongo~=3.10.1
