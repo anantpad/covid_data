@@ -13,7 +13,7 @@ mongo = PyMongo(app)
 def timed_job():
     data = requests.get("https://covidtracking.com/api/states")
     stateList = json.loads(data.content.decode("utf-8"))
-    print(statelist)
+    print(stateList)
     state = stateList.form["state"]
     positive = stateList.form["positive"]
     negative = stateList.form["negative"]
