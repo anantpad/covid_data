@@ -9,10 +9,9 @@ sched = BlockingScheduler()
 app.config["MONGO_URI"] = "mongodb://sridhar:asdf@cluster0-shard-00-00-aou9c.mongodb.net:27017,cluster0-shard-00-01-aou9c.mongodb.net:27017,cluster0-shard-00-02-aou9c.mongodb.net:27017/covid_state_db?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority"
 mongo = PyMongo(app)
 
-
-@sched.scheduled_job('interval', seconds=20)
+@sched.scheduled_job('interval', seconds=10)
 def timed_job():
-    data = requests.get("https://infection-data.herokuapp.com/")
+    data = requests.get("https://covidtracking.com/api/states")
     stateList = json.loads(data.content.decode("utf-8"))
     state = stateList.form["state"]
     positive = stateList.form["positive"]
