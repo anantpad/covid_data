@@ -9,7 +9,7 @@ print(client)
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', day=1)
+@sched.scheduled_job('interval', seconds=10)
 # this interval job is used to specify how often this has to repeat
 def timed_job():
     data = requests.get("https://covidtracking.com/api/states")
