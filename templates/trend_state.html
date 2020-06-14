@@ -61,12 +61,6 @@
         padding-bottom: 1%;
       }
     </style>
-  </style>
-  <!-- <script>
-  function rateChange(){
-    document.getElementById("calcValue").innerHTML = "Test";
-  }
-  </script> -->
   </head>
   <body>
     <form class="" action="/state" method="post">
@@ -75,9 +69,7 @@
         <a class="button" href="/">Home</a>
         <a class="button active" href="/state">State-wise Data</a>
       </nav>
-      <div id="piechart">
-
-      </div>
+      <div id="columnchart"></div>
       <div class="">
         {% for i in state_master %}
         <p>{{i}}</p>
@@ -86,7 +78,6 @@
             <thead>
               <tr>
                 <th>Positive Cases</th>
-                <th>Percent change</th>
                 <th>Date Modified</th>
                 <th>Recovered</th>
                 <th>Death</th>
@@ -98,7 +89,6 @@
               {% if j["state"] == i %}
               <tr>
                 <td>{{j["positive"]}}</td>
-                <td id="calcValue" onload="rateChange();">TRY</td>
                 <td>{{j["dateModified"]}}</td>
                 <td>{{j["recovered"]}}</td>
                 <td>{{j["death"]}}</td>
@@ -114,32 +104,25 @@
         {% endfor %}
       </div>
     </form>
-    <script type="javascript">
-    // Load google charts
+    <script type="text/javascript">
+      // Load google charts
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
       // Draw the chart and set the chart values
-
       function drawChart() {
         // console.log(JSON.stringify('{{trends}}'));
-        var data = google.visualization.arrayToDataTable([
-          ['State','Positive Cases'],
-          {% for dict in positive_cases %}
-          ['{{dict}}',{{positive_cases[dict]}},],
-          {% endfor %}
-        ]);
+        var positive_cases = {{ positive_cases | safe }};
+        var dataRows = [['State', 'Positive Cases']];
+        for ( key in positive_cases ){
+          dataRows.push([key, Number(positive_cases[key])])
+        }
+        console.log(dataRows);
+        var data = google.visualization.arrayToDataTable(dataRows);
         // Optional; add a title and set the width and height of the chart
-        var options = {'title':'State-wise Positive Cases', 'width':1800, 'height':900};
-
+        var options = {'title':'State-wise Positive Cases', 'width':600, 'height':400};
         // Display the chart inside the <div> element with id="piechart"
-        var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
+        var chart = new google.visualization.ColumnChart(document.getElementById('columnchart'));
         chart.draw(data, options);
-      }
-
-      function rateChange(){
-        var column2 = window.document.getElementById("calcValue")
-        console.log(column2.innerHTML);
-        column2.innerHTML = "Test";
       }
     </script>
   </body>
